@@ -63,5 +63,6 @@ RUN mkdir -p /var/log/supervisor
 RUN chmod -R 777 /var/log/supervisor
 EXPOSE 10389 22 6817 6818
 
+#ENTRYPOINT ["./start.sh"]
 #ENV HOSTNAME docker.example.com
 #CMD /usr/bin/supervisord

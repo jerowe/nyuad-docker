@@ -21,3 +21,5 @@ RUN cpanm HPC::Runner HPC::Runner::Scheduler
 RUN cpanm HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm HPC::Runner::MCE
 RUN cpanm BioX::Workflow
+
+RUN conda config --add channels biobuilds
