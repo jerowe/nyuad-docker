@@ -1,4 +1,4 @@
-FROM nyuad-docker/centos-base:latest
+FROM jerowe/nyuad-cgsb-base:latest
 
 #This all comes from here:
 #https://hub.docker.com/r/agaveapi/slurm/~/dockerfile/
