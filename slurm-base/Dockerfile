@@ -21,8 +21,8 @@ RUN yum -y install openssh-devel supervisor openssh-server
 RUN create-munge-key
 
 ## Install slurm WORKDIR /usr/local
-#RUN git clone https://github.com/SchedMD/slurm.git /slurm-git
-ADD slurm-git /slurm-git
+RUN git clone https://github.com/SchedMD/slurm.git /slurm-git
+#ADD slurm-git /slurm-git
 WORKDIR /slurm-git
 RUN git checkout tags/slurm-14-03-9-1
 RUN ./configure --prefix=/usr --sysconfdir=/etc/sysconfig/slurm --with-mysql_config=/usr/local/bin
