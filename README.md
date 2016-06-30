@@ -9,5 +9,6 @@ Build any of the images with docker build .
 docker run --rm -i -t -v /home/jillian/projects/nyuad-docker-data/resequencing:/data:Z -h docker.example.com -p 10022:22 nyuad-docker/slurm /bin/bash
 /etc/init.d/munge start
 /usr/bin/supervisord &
+
 cd /home/testuser
 sbatch slurm.submit
