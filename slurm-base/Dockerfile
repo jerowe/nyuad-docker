@@ -33,6 +33,7 @@ WORKDIR /usr/local/slurm
 RUN git checkout tags/slurm-14-03-9-1
 
 RUN ./configure --prefix=/usr --sysconfdir=/etc/sysconfig/slurm --with-mysql_config=/usr/local/bin
+RUN cpanm --notest ExtUtils::MakeMaker
 RUN make
 RUN make install
 RUN mkdir -p /etc/sysconfig/slurm
