@@ -66,8 +66,6 @@ RUN cpanm HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm HPC::Runner::MCE
 RUN cpanm BioX::Workflow
 
-RUN conda config --add channels biobuilds
-
 ##More Agave
 
 EXPOSE 10389 22
