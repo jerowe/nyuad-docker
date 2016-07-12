@@ -4,7 +4,6 @@ FROM centos:centos6
 
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
-#RUN yum update -y
 RUN yum install -y openssh-server openssh-clients which python-pip
 RUN mkdir -p /var/run/sshd && \
     echo "root:root" | chpasswd
@@ -14,20 +13,7 @@ RUN adduser "testuser" -m && \
 USER testuser
 RUN mkdir /home/testuser/.ssh
 ADD id_rsa.pub /home/testuser/.ssh/authorized_keys
-USER root
 
-RUN adduser "testshareuser" -m && \
-    echo "testshareuser:testshareuser" | chpasswd
-USER testshareuser
-RUN mkdir /home/testshareuser/.ssh
-ADD id_rsa.pub /home/testshareuser/.ssh/authorized_keys
-USER root
-
-RUN adduser "testotheruser" -m && \
-    echo "testotheruser:testotheruser" | chpasswd
-USER testotheruser
-RUN mkdir /home/testotheruser/.ssh
-ADD id_rsa.pub /home/testotheruser/.ssh/authorized_keys
 USER root
 
 RUN service sshd start
@@ -37,10 +23,10 @@ RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 RUN /bin/date
 
 # install supervisord
-RUN pip install "pip>=1.4,<1.5" --upgrade
-RUN pip install supervisor
+#RUN pip install "pip>=1.4,<1.5" --upgrade
+#RUN pip install supervisor
 
-ADD supervisord.conf /etc/supervisord.conf
+#ADD supervisord.conf /etc/supervisord.conf
 
 ##End Agave
 
@@ -69,4 +55,4 @@ RUN cpanm BioX::Workflow
 ##More Agave
 
 EXPOSE 10389 22
-CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/bin/supervisord"]

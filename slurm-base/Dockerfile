@@ -3,14 +3,6 @@ FROM jerowe/nyuad-cgsb-base:latest
 #This all comes from here:
 #https://hub.docker.com/r/agaveapi/slurm/~/dockerfile/
 
-
-# Install slurm
-#RUN yum -y install epel-release
-#RUN yum -y install gcc gcc-g++ make munge munge-devel httpd bzip2 vim-minimal tar perl git
-#RUN yum -y install openssl openssl-devel openssl-libs
-#RUN yum -y install munge munge-libs munge-devel
-#RUN yum -y install openssh-devel supervisor openssh-server
-
 # Add slurm user
 
 RUN adduser slurm && \
@@ -33,7 +25,6 @@ WORKDIR /usr/local/slurm
 RUN git checkout tags/slurm-14-03-9-1
 
 RUN ./configure --prefix=/usr --sysconfdir=/etc/sysconfig/slurm --with-mysql_config=/usr/local/bin
-RUN cpanm --notest ExtUtils::MakeMaker
 RUN make
 RUN make install
 RUN mkdir -p /etc/sysconfig/slurm
@@ -66,9 +57,9 @@ ADD slurm/slurm.submit /home/testuser/slurm.submit
 
 USER root
 RUN chown testuser:testuser /home/testuser/slurm.submit
-ADD supervisord.conf /etc/supervisord.conf
-RUN mkdir /var/log/supervisor
-RUN chmod -R 777 /var/log/supervisor
+#ADD supervisord.conf /etc/supervisord.conf
+#RUN mkdir /var/log/supervisor
+#RUN chmod -R 777 /var/log/supervisor
 
 EXPOSE 10389 22 6817 6818
 #CMD /usr/bin/supervisord
