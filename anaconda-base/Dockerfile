@@ -20,3 +20,4 @@ RUN conda install -c conda conda-env
 RUN conda install -y gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
+RUN conda install -y graphviz circos
