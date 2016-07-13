@@ -1,0 +1,21 @@
+FROM centos:centos6
+
+RUN yum update -y && yum upgrade -y
+RUN yum install -y python-pip environment-modules vim curl wget glibc-devel
+RUN yum -y clean all
+
+#Install miniconda
+RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
+RUN bash Miniconda-latest-Linux-x86_64.sh  -b -p /anaconda
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+env PATH=/anaconda/bin:$PATH
+
+#Subscripe to channels
+RUN conda config --add channels bioconda
+RUN conda config --add channels r
+
+#Lets install some base conda packages
+RUN conda install -c conda conda-env
+RUN conda install -y gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk
+RUN conda install -y samtools bcftools perl-bioperl perl-bioperl-core perl-bioperl-run bioconductor-biobase graphviz circos
