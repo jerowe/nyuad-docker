@@ -16,6 +16,7 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels r
 
 #Lets install some base conda packages
+RUN conda install -y python=2 python=3
 RUN conda install -c conda conda-env
 RUN conda install -y gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk
 RUN conda install -y samtools bcftools
