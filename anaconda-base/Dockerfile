@@ -1,7 +1,7 @@
 FROM centos:centos6
 
 RUN yum update -y && yum upgrade -y
-RUN yum install -y python-pip environment-modules vim curl wget glibc-devel
+RUN yum install -y openssl-devel openssh openssh-devel openssh-client python-pip environment-modules vim curl wget glibc-devel
 RUN yum -y clean all
 
 #Install miniconda
