@@ -5,8 +5,8 @@ RUN yum install -y openssl-devel openssh openssh-devel openssh-client python-pip
 RUN yum -y clean all
 
 #Install miniconda
-RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-RUN bash Miniconda-latest-Linux-x86_64.sh  -b -p /anaconda
+RUN mkdir -p /tmp/conda-build && wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh  -b -p /anaconda
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 env PATH=/anaconda/bin:$PATH
@@ -23,5 +23,3 @@ RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
 RUN conda install -y openssl graphviz circos
 RUN conda install -y python=3 psutil
-
-RUN yum install -y git
