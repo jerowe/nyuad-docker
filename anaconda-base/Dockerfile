@@ -1,7 +1,7 @@
 FROM centos:centos6
 
 RUN yum update -y && yum upgrade -y
-RUN yum install -y openssl-devel openssh openssh-devel openssh-client python-pip environment-modules vim curl wget glibc-devel
+RUN yum install -y openssl-devel openssh openssh-devel openssh-client python-pip environment-modules vim curl wget glibc-devel git
 RUN yum -y clean all
 
 #Install miniconda
@@ -22,4 +22,4 @@ RUN conda install -y discovar discovardenovo
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
 RUN conda install -y openssl graphviz circos
-RUN conda install -y python=3 psutil
+RUN conda install -y python=3
