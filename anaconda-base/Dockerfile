@@ -22,4 +22,4 @@ RUN conda install -y discovar discovardenovo
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
 RUN conda install -y openssl graphviz circos
-RUN conda install -y python=2 python=3 psutil
+RUN conda install -y python=3 psutil
