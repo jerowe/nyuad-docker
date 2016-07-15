@@ -17,7 +17,8 @@ RUN conda config --add channels r
 
 #Lets install some base conda packages
 RUN conda install -c conda conda-env
-RUN conda install -y anaconda gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk blast hmmer
+RUN conda install -y gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk blast hmmer
+RUN conda install -y anaconda-client conda-build
 RUN conda install -y discovar discovardenovo
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
