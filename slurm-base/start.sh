@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 
-
-/etc/init.d/munge start
-/usr/bin/supervisord &
+/etc/sbin/munge
+/usr/sbin/slurmctld
+/usr/sbin/slurmd start

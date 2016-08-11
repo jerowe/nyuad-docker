@@ -22,14 +22,6 @@ RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 
 RUN /bin/date
 
-# install supervisord
-#RUN pip install "pip>=1.4,<1.5" --upgrade
-#RUN pip install supervisor
-
-#ADD supervisord.conf /etc/supervisord.conf
-
-##End Agave
-
 #Update
 RUN yum update -y && yum upgrade -y &&  yum -y clean all
 RUN yum install -y wget curl glibc-devel
@@ -51,8 +43,6 @@ RUN cpanm HPC::Runner HPC::Runner::Scheduler
 RUN cpanm HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm HPC::Runner::MCE
 RUN cpanm BioX::Workflow
-
-##More Agave
+RUN cpanm --notest Dist::Milla
 
 EXPOSE 10389 22
-#CMD ["/usr/bin/supervisord"]
