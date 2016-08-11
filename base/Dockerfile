@@ -22,21 +22,23 @@ RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 
 RUN /bin/date
 
-#Update
+# Update
 RUN yum update -y && yum upgrade -y &&  yum -y clean all
 RUN yum install -y wget curl glibc-devel
 
-#Install miniconda
+# Install miniconda
 RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-RUN bash Miniconda-latest-Linux-x86_64.sh  -b -p /anaconda
+RUN mkdir -p /opt/anaconda
+RUN bash Miniconda-latest-Linux-x86_64.sh  -b -p /opt/anaconda
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-env PATH=/anaconda/bin:$PATH
+env PATH=/opt/anaconda/bin:$PATH
 
-#Subscripe to channels
+# Subscripe to channels
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
 
+# Do some base installs
 RUN conda install -y gcc perl-app-cpanminus perl-termreadkey r r-base r-essentials java-jdk
 RUN cpanm MooseX::Getopt::Usage::Role::Man
 RUN cpanm HPC::Runner HPC::Runner::Scheduler
@@ -45,4 +47,14 @@ RUN cpanm HPC::Runner::MCE
 RUN cpanm BioX::Workflow
 RUN cpanm --notest Dist::Milla
 
+# Now lets install Easybuild!
+RUN mkdir -p /opt/easybuild
+RUN yum install -y environment-modules curl
+ENV EASYBUILD_PREFIX=/opt/easybuild
+RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
+RUN python bootstrap_eb.py $EASYBUILD_PREFIX
+RUN module use $EASYBUILD_PREFIX/modules/all
+RUN module load EasyBuild
+
+# I don't know what this is for
 EXPOSE 10389 22
