@@ -26,11 +26,9 @@ RUN /bin/date
 RUN yum update -y && yum upgrade -y &&  yum -y clean all
 RUN yum install -y wget curl glibc-devel
 
-
 # Install miniconda
-RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh
-RUN mkdir -p /opt/anaconda
-RUN bash Miniconda-latest-Linux-x86_64.sh  -b -p /opt/anaconda
+RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh  -b -p /opt/anaconda3
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 env PATH=/opt/anaconda/bin:$PATH
