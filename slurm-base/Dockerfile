@@ -62,4 +62,4 @@ RUN chown testuser:testuser /home/testuser/slurm.submit
 #RUN chmod -R 777 /var/log/supervisor
 
 EXPOSE 10389 22 6817 6818
-#CMD /usr/bin/supervisord
+ENTRYPOINT ["/start-slurm.sh"]
