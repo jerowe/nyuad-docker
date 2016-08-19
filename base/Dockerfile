@@ -39,12 +39,12 @@ RUN conda config --add channels r
 
 # Do some base installs
 RUN conda install -y gcc perl-app-cpanminus perl-termreadkey r r-base r-essentials java-jdk
-RUN cpanm MooseX::Getopt::Usage::Role::Man
-RUN cpanm HPC::Runner HPC::Runner::Scheduler
-RUN cpanm HPC::Runner::Slurm HPC::Runner::PBS
-RUN cpanm HPC::Runner::MCE
-RUN cpanm BioX::Workflow
-RUN cpanm --notest --quiet --skip-satisfied Dist::Milla
+RUN cpanm --quiet Task::Moose MooseX::Getopt::Usage::Role::Man
+RUN cpanm --quiet HPC::Runner HPC::Runner::Scheduler
+RUN cpanm --quiet HPC::Runner::Slurm HPC::Runner::PBS
+RUN cpanm --quiet HPC::Runner::MCE
+RUN cpanm --quiet BioX::Workflow
+#RUN cpanm --notest --quiet --skip-satisfied Dist::Milla
 
 # Now lets install Easybuild!
 RUN mkdir -p /opt/easybuild
