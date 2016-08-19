@@ -44,7 +44,7 @@ RUN cpanm HPC::Runner HPC::Runner::Scheduler
 RUN cpanm HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm HPC::Runner::MCE
 RUN cpanm BioX::Workflow
-RUN cpanm --notest Dist::Milla
+RUN cpanm --notest --quiet --skip-satisfied Dist::Milla
 
 # Now lets install Easybuild!
 RUN mkdir -p /opt/easybuild
