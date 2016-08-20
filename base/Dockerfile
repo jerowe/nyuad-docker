@@ -1,10 +1,12 @@
 FROM centos:centos6
 
-##Begin Agave
-
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 
 RUN yum install -y git openssh-server openssh-clients which python-pip
+RUN yum install -y environment-modules curl
+RUN yum install -y wget curl glibc-devel
+RUN yum update -y && yum upgrade -y &&  yum -y clean all
+
 RUN mkdir -p /var/run/sshd && \
     echo "root:root" | chpasswd
 
@@ -22,9 +24,13 @@ RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 
 RUN /bin/date
 
-# Update
-RUN yum update -y && yum upgrade -y &&  yum -y clean all
-RUN yum install -y wget curl glibc-devel
+# Now lets install Easybuild!
+RUN mkdir -p /opt/easybuild
+ENV EASYBUILD_PREFIX=/opt/easybuild
+RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
+RUN python2 bootstrap_eb.py $EASYBUILD_PREFIX
+RUN module use $EASYBUILD_PREFIX/modules/all
+RUN module load EasyBuild
 
 # Install miniconda
 RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -44,16 +50,6 @@ RUN cpanm --quiet HPC::Runner HPC::Runner::Scheduler
 RUN cpanm --quiet HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm --quiet HPC::Runner::MCE
 RUN cpanm --quiet BioX::Workflow
-#RUN cpanm --notest --quiet --skip-satisfied Dist::Milla
+RUN cpanm --notest --quiet --skip-satisfied Dist::Zilla Dist::Milla
 
-# Now lets install Easybuild!
-RUN mkdir -p /opt/easybuild
-RUN yum install -y environment-modules curl
-ENV EASYBUILD_PREFIX=/opt/easybuild
-RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
-RUN python bootstrap_eb.py $EASYBUILD_PREFIX
-RUN module use $EASYBUILD_PREFIX/modules/all
-RUN module load EasyBuild
-
-# I don't know what this is for
 EXPOSE 10389 22
