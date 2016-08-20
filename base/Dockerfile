@@ -10,13 +10,21 @@ RUN yum update -y && yum upgrade -y &&  yum -y clean all
 RUN mkdir -p /var/run/sshd && \
     echo "root:root" | chpasswd
 
+#Make some users
+
 RUN adduser "testuser" -m && \
     echo "testuser:testuser" | chpasswd
 USER testuser
 RUN mkdir /home/testuser/.ssh
 ADD id_rsa.pub /home/testuser/.ssh/authorized_keys
 
+RUN adduser "easybuild" -m && \
+    echo "easybuild:easybuild" | chpasswd
+USER easybuild
+RUN mkdir /home/easybuild
+
 USER root
+RUN chown easybuild:easybuild /opt/easybuild
 
 RUN service sshd start
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
@@ -25,6 +33,7 @@ RUN sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
 RUN /bin/date
 
 # Now lets install Easybuild!
+USER easybuild
 RUN mkdir -p /opt/easybuild
 ENV EASYBUILD_PREFIX=/opt/easybuild
 RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
@@ -33,6 +42,7 @@ RUN module use $EASYBUILD_PREFIX/modules/all
 RUN module load EasyBuild
 
 # Install miniconda
+USER root
 RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh  -b -p /opt/anaconda3
 ENV LANG en_US.UTF-8
