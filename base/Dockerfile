@@ -18,6 +18,7 @@ USER testuser
 RUN mkdir /home/testuser/.ssh
 ADD id_rsa.pub /home/testuser/.ssh/authorized_keys
 
+USER root
 RUN adduser "easybuild" -m && \
     echo "easybuild:easybuild" | chpasswd
 USER easybuild
