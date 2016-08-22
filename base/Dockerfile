@@ -24,7 +24,6 @@ RUN adduser "easybuild" -m && \
 #RUN mkdir /home/easybuild
 
 USER root
-RUN chown easybuild:easybuild /opt/easybuild
 
 RUN service sshd start
 RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
@@ -35,6 +34,7 @@ RUN /bin/date
 # Now lets install Easybuild!
 USER easybuild
 RUN mkdir -p /opt/easybuild
+RUN chown easybuild:easybuild /opt/easybuild
 ENV EASYBUILD_PREFIX=/opt/easybuild
 RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
 RUN python2 bootstrap_eb.py $EASYBUILD_PREFIX
