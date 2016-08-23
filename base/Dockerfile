@@ -39,6 +39,7 @@ RUN chown easybuild:easybuild /opt/easybuild
 
 USER easybuild
 ENV EASYBUILD_PREFIX=/opt/easybuild
+WORKDIR /opt/easybuild
 RUN curl -O https://raw.githubusercontent.com/hpcugent/easybuild-framework/develop/easybuild/scripts/bootstrap_eb.py
 RUN python2 bootstrap_eb.py $EASYBUILD_PREFIX
 RUN module use $EASYBUILD_PREFIX/modules/all
