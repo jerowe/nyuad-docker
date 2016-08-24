@@ -60,11 +60,15 @@ RUN conda config --add channels r
 
 # Do some base installs
 RUN conda install -y gcc perl-app-cpanminus perl-termreadkey r r-base r-essentials java-jdk
+RUN conda install -y perl-net-ssleay
 RUN cpanm --quiet Task::Moose MooseX::Getopt::Usage::Role::Man
 RUN cpanm --quiet HPC::Runner HPC::Runner::Scheduler
 RUN cpanm --quiet HPC::Runner::Slurm HPC::Runner::PBS
 RUN cpanm --quiet HPC::Runner::MCE
 RUN cpanm --quiet BioX::Workflow
-RUN cpanm --notest --quiet --skip-satisfied Dist::Zilla Dist::Milla
+RUN git config --global user.name 'My Name'
+RUN git config --global user.email 'email@google.com'
+RUN cpanm --verbose Git::Wrapper
+RUN cpanm --notest --quiet --skip-satisfied  Dist::Milla
 
 EXPOSE 10389 22
