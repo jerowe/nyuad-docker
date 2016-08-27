@@ -15,6 +15,7 @@ env PATH=/anaconda/bin:$PATH
 #Subscripe to channels
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
+RUN conda config --add channels javascript
 
 #Lets install some base conda packages
 RUN conda install -c conda conda-env
@@ -25,3 +26,6 @@ RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
 RUN conda install -y openssl graphviz circos
 RUN conda install -y python=3
+RUN conda install -y nodejs
+
+RUN npm install -g marked-man
