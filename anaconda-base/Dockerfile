@@ -16,6 +16,7 @@ env PATH=/anaconda/bin:$PATH
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
 RUN conda config --add channels javascript
+RUN conda config --set always_yes True
 
 #Lets install some base conda packages
 RUN conda install -c conda conda-env
@@ -24,6 +25,9 @@ RUN conda install -y anaconda-client conda-build
 RUN conda install -y discovar discovardenovo
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
+RUN conda install -y perl-hpc-runner hpc-runner-scheduler hpc-runner-mce hpc-runner-slurm
+RUN conda install -y perl-biox-workflow perl-biox-workflow-plugin-fileexists perl-biox-workflow-plugin-filedetails
+RUN conda install -y soapdenovo2 soapdenovo2-prepare
 RUN conda install -y openssl graphviz circos
 RUN conda install -y python=3
 RUN conda install -y nodejs
