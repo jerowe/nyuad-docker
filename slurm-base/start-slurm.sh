@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-/usr/sbin/munge
+/usr/sbin/munged
 /usr/sbin/slurmctld
 /usr/sbin/slurmd start
