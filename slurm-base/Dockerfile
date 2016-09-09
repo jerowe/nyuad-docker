@@ -61,5 +61,10 @@ RUN chown testuser:testuser /home/testuser/slurm.submit
 #RUN mkdir /var/log/supervisor
 #RUN chmod -R 777 /var/log/supervisor
 
+##These are for development
+RUN cpanm --notest --quiet https://github.com/jerowe/HPC-Runner-Command.git
+RUN cpanm --notest --quiet https://github.com/jerowe/HPC-Runner-Command-Plugin-Logger-Sqlite.git
+RUN cpanm --notest --quiet https://github.com/jerowe/HPC-Runner-Command-Plugin-Blog.git
+
 EXPOSE 10389 22 6817 6818
 ENTRYPOINT ["/start-slurm.sh"]

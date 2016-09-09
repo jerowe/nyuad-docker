@@ -52,7 +52,8 @@ RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Minico
 RUN bash Miniconda3-latest-Linux-x86_64.sh  -b -p /opt/anaconda3
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-env PATH=/opt/anaconda3/bin:$PATH
+ENV PATH=/opt/anaconda3/bin:$PATH
+RUN rm Miniconda3-latest-Linux-x86_64.sh
 
 # Subscripe to channels
 RUN conda config --add channels bioconda
