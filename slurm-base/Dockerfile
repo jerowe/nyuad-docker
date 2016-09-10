@@ -67,4 +67,5 @@ RUN cpanm --notest --quiet https://github.com/jerowe/HPC-Runner-Command-Plugin-L
 RUN cpanm --notest --quiet https://github.com/jerowe/HPC-Runner-Command-Plugin-Blog.git
 
 EXPOSE 10389 22 6817 6818
+ADD start-slurm.sh "/start-slurm.sh"
 ENTRYPOINT ["/start-slurm.sh"]
