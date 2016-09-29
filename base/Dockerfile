@@ -49,12 +49,13 @@ RUN which modulecmd
 
 # Install miniconda
 USER root
-RUN mkdir -p /tmp/conda-build &&  wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh  -b -p /opt/anaconda3
+#Install miniconda
+RUN mkdir -p /tmp/conda-build && wget  http://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh
+RUN bash Miniconda3-4.0.5-Linux-x86_64.sh -b -p /anaconda
+RUN rm Miniconda3-4.0.5-Linux-x86_64.sh
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-ENV PATH=/opt/anaconda3/bin:$PATH
-RUN rm Miniconda3-latest-Linux-x86_64.sh
+ENV PATH=/anaconda/bin:$PATH
 
 # Subscripe to channels
 RUN conda config --add channels bioconda
