@@ -37,6 +37,7 @@ USER root
 RUN mkdir -p /opt/easybuild
 RUN chown easybuild:easybuild /opt/easybuild
 
+#TODO GET THIS WORKING
 USER easybuild
 ENV EASYBUILD_PREFIX=/opt/easybuild
 WORKDIR /opt/easybuild
