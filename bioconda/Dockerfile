@@ -3,9 +3,7 @@ FROM condaforge:linux-anvil
 #Subscripe to channels
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
-RUN conda config --add channels javascript
 RUN conda config --set always_yes True
-
 
 #Lets install some base conda packages
 RUN conda install -c conda conda-env
