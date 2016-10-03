@@ -1,4 +1,4 @@
-FROM condaforge:linux-anvil
+FROM quay.io/condaforge/linux-anvil:latest
 
 #Subscripe to channels
 RUN conda config --add channels bioconda
