@@ -1,13 +1,22 @@
-### NYUAD CGSB base of bioconda builder image
-### This is simply a copy of the condaforge/linux-anvil image, but with some images precached to speed up building
+FROM ubuntu:16.04
 
-FROM quay.io/condaforge/linux-anvil:latest
+##TODO make this from centos base image
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y git openssl-dev openssh openssh-dev openssh-client python-pip environment-modules curl wget
+RUN apt-get -y clean all
 
-ENV PATH=/opt/conda/bin:$PATH
+#Install miniconda
+RUN mkdir -p /tmp/conda-build && wget  http://repo.continuum.io/miniconda/Miniconda3-4.0.5-Linux-x86_64.sh
+RUN bash Miniconda3-4.0.5-Linux-x86_64.sh -b -p /anaconda
+RUN rm Miniconda3-4.0.5-Linux-x86_64.sh
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+ENV PATH=/anaconda/bin:$PATH
 
 #Subscripe to channels
 RUN conda config --add channels bioconda
 RUN conda config --add channels r
+RUN conda config --add channels javascript
 RUN conda config --set always_yes True
 
 #Lets install some base conda packages
@@ -17,13 +26,12 @@ RUN conda install -y anaconda-client conda-build
 RUN conda install -y discovar discovardenovo
 RUN conda install -y samtools bcftools
 RUN conda install -y perl-bioperl perl-bioperl-core perl-bioperl-run
-RUN conda install -y perl-moose perl-hpc-runner perl-hpc-runner-scheduler perl-hpc-runner-mce perl-hpc-runner-slurm
+RUN conda install -y perl-hpc-runner perl-hpc-runner-scheduler perl-hpc-runner-mce perl-hpc-runner-slurm
 RUN conda install -y perl-biox-workflow perl-biox-workflow-plugin-fileexists perl-biox-workflow-plugin-filedetails
 RUN conda install -y soapdenovo2 soapdenovo2-prepare
 RUN conda install -y openssl graphviz circos
 RUN conda install -y python=3
 RUN conda install -y click
+RUN conda install -y nodejs
 
-#Install bioconda Utils
-RUN pip install git+https://github.com/bioconda/bioconda-utils.git
-RUN pip install git+https://github.com/bioconda/conda-build.git@fix-build-skip-existing
+RUN npm install -g marked-man
