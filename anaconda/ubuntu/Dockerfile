@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 ##TODO make this from centos base image
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y git openssl-dev openssh-client openssh-server python-pip environment-modules curl wget
+RUN apt-get install -y git openssl openssh-client openssh-server python-pip environment-modules curl wget
 RUN apt-get -y clean all
 
 #Install miniconda
