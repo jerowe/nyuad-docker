@@ -14,9 +14,10 @@ ENV LC_ALL en_US.UTF-8
 ENV PATH=/anaconda/bin:$PATH
 
 #Subscripe to channels
-RUN conda config --add channels bioconda
+RUN conda config --add channels conda-forge
+RUN conda config --add channels defaults
 RUN conda config --add channels r
-RUN conda config --add channels javascript
+RUN conda config --add channels bioconda
 RUN conda config --set always_yes True
 
 #Lets install some base conda packages
