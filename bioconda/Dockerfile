@@ -13,7 +13,7 @@ RUN conda config --add channels bioconda
 RUN conda config --set always_yes True
 
 #Lets install some base conda packages
-RUN conda install -c conda
+RUN conda install  conda
 RUN conda install -y gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk blast hmmer
 RUN conda install -y anaconda-client conda-build
 RUN conda install -y samtools bcftools
