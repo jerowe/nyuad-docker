@@ -43,14 +43,12 @@ RUN conda create -p /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 easy
 RUN mkdir -p $HOME/.config/easybuild
 
 # Here is how you add a file from the main repo
-# RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
-#	eb --try-software-name Anaconda2 
+RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
+	eb --try-software-name Anaconda2 
 
 RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos 
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
-
-ENV ROBOT=/home/ebuser/.eb/custom_repos/nyuad-hpc-modules-configs/_easybuild
 
 ADD config.cfg $HOME/.config/easybuild/config.cfg
 
