@@ -24,6 +24,7 @@ RUN useradd -ms /bin/bash ebuser
 
 USER ebuser
 WORKDIR /home/ebuser
+
 ENV HOME=/home/ebuser
 ENV PATH=/opt/conda/bin:$PATH
 ENV EASYBUILD_PREFIX=$HOME/.eb
@@ -40,7 +41,6 @@ RUN conda config --set show_channel_urls True && \
 RUN conda create -p /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 easybuild lmod 
 
 RUN mkdir -p $HOME/.config/easybuild
-# ADD config.cfg $HOME/.config/easybuild/config.cfg
 
 # Here is how you add a file from the main repo
 # RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
@@ -50,14 +50,17 @@ RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos 
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
 
-WORKDIR $HOME/.eb/custom_repos/nyuad-hpc-modules-configs 
+ENV ROBOT=/home/ebuser/.eb/custom_repos/nyuad-hpc-modules-configs/_easybuild
+
+ADD config.cfg $HOME/.config/easybuild/config.cfg
+
+# There is also a way to use --robot-paths instead of adding it to the config file
 
 RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
-	eb --robot --robot-paths=$HOME/.eb/custom_repos/nyuad-hpc-modules-configs/_easybuild gencore_rnaseq-1.0.eb && \
+	eb --dry-run  --robot  gencore_rnaseq-1.0.eb && \
         module list
 
-# ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10" ]
-
+ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10" ]
 # Alternately, we could just load and source the modules ourselves
 # ENV BASE="/home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10"
 # ENV PATH=${BASE}/bin:$PATH
