@@ -54,9 +54,12 @@ ADD config.cfg $HOME/.config/easybuild/config.cfg
 
 # There is also a way to use --robot-paths instead of adding it to the config file
 
+ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
+
 RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
-	eb --dry-run  --robot  gencore_rnaseq-1.0.eb && \
-        module list
+	eb --dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
+	module use $EASYBUILD_PREFIX/modules/all && \
+        module avail
 
 ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10" ]
 # Alternately, we could just load and source the modules ourselves
