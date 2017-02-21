@@ -41,21 +41,21 @@ RUN conda config --set show_channel_urls True && \
 RUN conda create -p /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 easybuild lmod 
 
 RUN mkdir -p $HOME/.config/easybuild
+ADD config.cfg $HOME/.config/easybuild/config.cfg
 
 # Here is how you add a file from the main repo
 RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
 	eb --try-software-name Anaconda2 
 
+#Now we will add our own custom repos
+
 RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos 
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
 
-ADD config.cfg $HOME/.config/easybuild/config.cfg
-
-# There is also a way to use --robot-paths instead of adding it to the config file
-
 ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 
+# Remove the --dry-run in order to actually install the module
 RUN source activate /home/ebuser/.eb/eb--3.1.10_environment-modules--3.2.10 && \
 	eb --dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
 	module use $EASYBUILD_PREFIX/modules/all && \
