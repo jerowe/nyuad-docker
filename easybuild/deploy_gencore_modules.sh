@@ -57,7 +57,7 @@ export MODULEPATH=$EASYBUILD_PREFIX/modules/all
 ## out sections for the modules-tool and modules-syntax 
 ##################################################################
 mkdir -p $HOME/.config/easybuild
-ADD config.cfg $HOME/.config/easybuild/config.cfg
+#ADD config.cfg $HOME/.config/easybuild/config.cfg
  
 ##################################################################
 ## Conda config for ebuser
@@ -102,8 +102,7 @@ cd $HOME
 ## Robot will tell EB to automatically pull in deps
 ## Robot-path will tell EB where to look for configs  
 ##################################################################
-export ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
-export EASYBUILD_ROBOT_PATHS $ROBOT: 
+export ROBOT=$HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 
 ## Remove the --dry-run in order to actually install the module
 source activate $EB_ENV && \
@@ -116,14 +115,13 @@ source activate $EB_ENV && \
 source activate $EB_ENV && \
 	module avail
 
+##################################################################
+## Install a gnecore module 
+## Finally, running this command will install the gencore_rnaseq-1.0 module
+## Additionally, it will install the gencore_anaconda2 module if it is not already available
+##################################################################
+
 #source activate $EB_ENV && \
 #	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
 #        module avail
-#
-#ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.1.10_lmod--7.3.16" ]
-
-# Alternately, we could just load and source the modules ourselves
-# export BASE="/home/ebuser/.eb/eb--3.1.10_lmod--7.3.16"
-# export PATH=${BASE}/bin:$PATH
-# $BASE/etc/conda/activate.d/*-activate.sh
 
