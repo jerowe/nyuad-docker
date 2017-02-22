@@ -82,10 +82,11 @@ conda create -p $EB_ENV easybuild lmod
 ##################################################################
 ## Install an Easybuild Config 
 ## Anaconda2 is a Core EB config  
-## --try* is a way of telling EB to look for softwares and versions 
+## --software-name is a way of telling EB to look for software 
+## from the repos instead of supplying a .eb file 
 ##################################################################
 source activate $EB_ENV && \
-	eb --try-software-name Anaconda2 
+	eb --software-name Anaconda2 
 
 ##################################################################
 ## Add NYUAD Easybuild Configs 
@@ -105,15 +106,13 @@ cd $HOME
 export ROBOT=$HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 
 ## Remove the --dry-run in order to actually install the module
-source activate $EB_ENV && \
-	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0.eb
+source activate $EB_ENV
+eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0.eb
 
 ## Using --extended-dry-run will give you more information
-source activate $EB_ENV && \
-	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb
+eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb
 
-source activate $EB_ENV && \
-	module avail
+module avail
 
 ##################################################################
 ## Install a gnecore module 
@@ -121,7 +120,6 @@ source activate $EB_ENV && \
 ## Additionally, it will install the gencore_anaconda2 module if it is not already available
 ##################################################################
 
-#source activate $EB_ENV && \
-#	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
-#        module avail
+# eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb
+# module avail
 

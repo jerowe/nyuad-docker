@@ -74,10 +74,11 @@ RUN conda create -p $EB_ENV easybuild lmod
 ##################################################################
 ## Install an Easybuild Config 
 ## Anaconda2 is a Core EB config  
-## --try* is a way of telling EB to look for softwares and versions 
+## --software-name is a way of telling EB to look for software 
+## from the repos instead of supplying a .eb file 
 ##################################################################
 RUN source activate $EB_ENV && \
-	eb --try-software-name Anaconda2 
+	eb --software-name Anaconda2 
 
 ##################################################################
 ## Add NYUAD Easybuild Configs 
