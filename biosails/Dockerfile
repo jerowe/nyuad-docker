@@ -68,3 +68,11 @@ RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v0.0.1-bet
 	perl ./Build test     && \
 	perl ./Build install --installdirs site
 
+
+WORKDIR /tmp
+
+RUN cpanm --notest Plack::Handler::Starman
+
+CMD plackup -E deployment -s Starman -p 3001 -r -R `pwd`/lib -a BioX-Workflow-Command-REST-0.0.1-beta/script/biox-app.psgi
+
+EXPOSE 3011
