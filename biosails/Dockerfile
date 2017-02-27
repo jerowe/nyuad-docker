@@ -58,9 +58,9 @@ RUN wget https://github.com/jerowe/BioX-Workflow-Command/archive/v2.0.0-beta.tar
 
 WORKDIR /tmp
 
-RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v0.0.1-beta.tar.gz && \
-	tar -xvf v0.0.1-beta.tar.gz && \
-	cd  BioX-Workflow-Command-REST-0.0.1-beta && \
+RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v0.0.2-beta.tar.gz && \
+	tar -xvf v0.0.2-beta.tar.gz && \
+	cd  BioX-Workflow-Command-REST-0.0.2-beta && \
 	cpanm --force --notest  --installdeps . && \
 	cpanm --notest --force Log::Dispatch && \
 	perl ./Build.PL       && \
@@ -73,6 +73,4 @@ WORKDIR /tmp
 
 RUN cpanm --notest Plack::Handler::Starman
 
-CMD plackup -E deployment -s Starman -p 3001 -r -R `pwd`/lib -a BioX-Workflow-Command-REST-0.0.1-beta/script/biox-app.psgi
-
-EXPOSE 3011
+CMD plackup -E deployment -s Starman -p 3001 -r -R `pwd`/lib -a BioX-Workflow-Command-REST-0.0.2-beta/script/biox-app.psgi
