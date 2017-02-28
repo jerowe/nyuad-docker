@@ -58,7 +58,7 @@ RUN wget https://github.com/jerowe/BioX-Workflow-Command/archive/v2.0.1-beta.tar
 
 WORKDIR /tmp
 
-ENV RELEASE '0.0.5-beta'
+ENV RELEASE '0.0.6-beta'
 RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v${RELEASE}.tar.gz && \
 	tar -xvf v${RELEASE}.tar.gz && \
 	cd  BioX-Workflow-Command-REST-${RELEASE} && \
