@@ -26,5 +26,5 @@ RUN conda install -y python=3
 RUN conda install -y click
 
 #Install bioconda Utils
-RUN pip install git+https://github.com/bioconda/bioconda-utils.git
 RUN pip install git+https://github.com/bioconda/conda-build.git@fix-build-skip-existing
+RUN pip install git+https://github.com/bioconda/bioconda-utils.git
