@@ -4,7 +4,7 @@
 ##################################################################
 ## Base Image Setup 
 ##################################################################
-FROM quay.io/condaforge-linux-anvil
+FROM quay.io/condaforge/linux-anvil
 
 ENV LANG en_US.UTF-8
 
