@@ -3,6 +3,9 @@
 
 FROM quay.io/condaforge/linux-anvil:latest
 
+RUN . /opt/docker/bin/entrypoint_source
+RUN . scl_source enable devtoolset-2
+
 ENV PATH=/opt/conda/bin:$PATH
 
 #Subscripe to channels
@@ -14,7 +17,7 @@ RUN conda config --set always_yes True
 
 #Lets install some base conda packages
 RUN conda install  conda
-RUN conda install -y openssl gcc libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk
+RUN conda install -y openssl zlib perl-app-cpanminus perl-termreadkey perl-dbi r r-base r-essentials java-jdk
 RUN conda install -y anaconda-client conda-build
 RUN conda install -y python=3
 RUN conda install -y click
