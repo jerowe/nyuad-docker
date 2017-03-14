@@ -100,11 +100,11 @@ ENV EASYBUILD_ROBOT_PATHS $ROBOT:
 
 ## Remove the --dry-run in order to actually install the module
 RUN source activate $EB_ENV && \
-	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0.eb
+	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0-0.eb
 
 ## Using --extended-dry-run will give you more information
 RUN source activate $EB_ENV && \
-	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb
+	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0-0.eb
 
 RUN source activate $EB_ENV && \
 	module avail
