@@ -4,11 +4,11 @@
 ##################################################################
 ## Base Image Setup 
 ##################################################################
-FROM centos:6.6
+FROM quay.io/condaforge-linux-anvil
 
 ENV LANG en_US.UTF-8
 
-RUN yum install -y git wget tar make bzip2 patch which
+RUN . /opt/docker/bin/entrypoint_source
 
 ##################################################################
 ## Anaconda Setup
