@@ -43,6 +43,7 @@ ENV HOME=/home/ebuser
 ENV PATH=${ANACONDA3_BASE}/bin:$PATH
 ENV EASYBUILD_PREFIX=$HOME/.eb
 ENV EB_ENV=/home/ebuser/.eb/eb--3.1.10_lmod--7.3.16
+ENV EM_ENV=/home/ebuser/.eb/eb--3.1.10_em--3.2.10
 ENV MODULEPATH=$EASYBUILD_PREFIX/modules/all
 
 ##################################################################
@@ -71,8 +72,10 @@ RUN conda config --set show_channel_urls True && \
 ## Install Easybuild and Lmod
 ## Create a conda env with easybuild and lmod - and nothing else  
 ##################################################################
-RUN conda create -p $EB_ENV easybuild lmod 
+RUN conda create -p $EB_ENV easybuild lmod
+RUN conda create -p $EM_ENV easybuild environment-modules
 
+ENV EM_ARGS " --modules-tool EnvironmentModulesC --module-syntax Tcl "
 ##################################################################
 ## Install an Easybuild Config 
 ## Anaconda2 is a Core EB config  
