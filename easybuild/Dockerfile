@@ -27,6 +27,7 @@ RUN rm miniconda.sh && \
     conda config --add channels conda-forge && \
     conda config --add channels defaults && \
     conda update --all --yes && \
+    conda install --yes anaconda-client nbformat && \
     conda clean -tipy
 
 ##################################################################
