@@ -8,6 +8,7 @@ FROM quay.io/condaforge/linux-anvil
 
 ENV LANG en_US.UTF-8
 
+RUN yum install -y git
 RUN . /opt/docker/bin/entrypoint_source
 
 ##################################################################
