@@ -59,7 +59,7 @@ ADD config.cfg $HOME/.config/easybuild/config.cfg
 ## Setup the initial conda configuration for the ebuser 
 ##################################################################
 RUN conda config --set show_channel_urls True && \
-    conda config --add channels nyuad-cgsb && \ 
+    conda config --add channels nyuad-cgsb && \
     conda config --add channels conda-forge && \
     conda config --add channels defaults && \
     conda config --add channels r && \
@@ -82,8 +82,8 @@ ENV EM_ARGS " --modules-tool EnvironmentModulesC --module-syntax Tcl "
 ## --software-name is a way of telling EB to look for software 
 ## from the repos instead of supplying a .eb file 
 ##################################################################
-RUN source activate $EB_ENV && \
-	eb --software-name Anaconda2 
+#RUN source activate $EB_ENV && \
+	#eb --software-name Anaconda2 
 
 ##################################################################
 ## Add NYUAD Easybuild Configs 
@@ -101,11 +101,22 @@ WORKDIR $HOME
 ## Robot-path will tell EB where to look for configs  
 ##################################################################
 ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
-ENV EASYBUILD_ROBOT_PATHS $ROBOT: 
+ENV EASYBUILD_ROBOT_PATHS $ROBOT:
+
+RUN source activate $EB_ENV && \
+	eb  --robot --robot-paths=$ROBOT   gencore_biosails-1.0-0.eb
+
+RUN source activate $EB_ENV && \
+	eb  --robot --robot-paths=$ROBOT   gencore_anaconda2-4.3.0.eb
 
 ## Remove the --dry-run in order to actually install the module
 RUN source activate $EB_ENV && \
 	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0-0.eb
+
+#Not sure if this is necessary
+RUN source activate $EB_ENV && \
+ 	eb --dry-run --robot --robot-paths=$ROBOT: --minimal-toolchains --add-dummy-to-minimal-toolchains  gencore_rnaseq-1.0-0.eb
+
 
 ## Using --extended-dry-run will give you more information
 RUN source activate $EB_ENV && \

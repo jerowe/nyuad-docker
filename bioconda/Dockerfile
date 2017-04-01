@@ -23,5 +23,11 @@ RUN conda install -y python=3
 RUN conda install -y click
 
 #Install bioconda Utils
-RUN pip install git+https://github.com/bioconda/conda-build.git@fix-build-skip-existing
+#RUN pip install git+https://github.com/bioconda/conda-build.git@fix-build-skip-existing
 RUN pip install git+https://github.com/bioconda/bioconda-utils.git
+
+RUN conda index /opt/conda/conda-bld/linux-64 /opt/conda/conda-bld/osx-64
+RUN conda config --add channels file://conda/conda-bld
+
+ENTRYPOINT ["/bioconda-recipes/simulate-travis.py --set-channel-order" , "/bioconda-recipes/simulate-travis.py --install-requirements"]
+CMD [ "/bin/bash" ]
