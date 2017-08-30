@@ -89,6 +89,7 @@ ENV EM_ARGS " --modules-tool EnvironmentModulesC --module-syntax Tcl "
 ## Add NYUAD Easybuild Configs 
 ## These are custom configs outside of the Easybuild Main  
 ##################################################################
+
 RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos 
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
@@ -100,6 +101,7 @@ WORKDIR $HOME
 ## Robot will tell EB to automatically pull in deps
 ## Robot-path will tell EB where to look for configs  
 ##################################################################
+
 ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 ENV EASYBUILD_ROBOT_PATHS $ROBOT:
 
