@@ -15,21 +15,22 @@ RUN . /opt/docker/bin/entrypoint_source
 ## Anaconda Setup
 ## We are using miniconda3/python3 from anaconda
 ##################################################################
-ENV ANACONDA3_BASE /opt/anaconda3
+# ENV ANACONDA3_BASE /opt/anaconda3
+ENV ANACONDA3_BASE /opt/conda
 
-RUN curl -s -L https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh  > miniconda.sh && \
-    openssl md5 miniconda.sh | grep d0c7c71cc5659e54ab51f2005a8d96f3
-
-RUN mkdir -p /opt/
-RUN chmod 777 miniconda.sh ; bash miniconda.sh -b -p $ANACONDA3_BASE
-RUN rm miniconda.sh && \
-    export PATH=${ANACONDA3_BASE}/bin:$PATH && \
-    conda config --set show_channel_urls True && \
-    conda config --add channels conda-forge && \
-    conda config --add channels defaults && \
-    conda update --all --yes && \
-    conda install --yes anaconda-client nbformat && \
-    conda clean -tipy
+# RUN curl -s -L https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh  > miniconda.sh && \
+#     openssl md5 miniconda.sh | grep d0c7c71cc5659e54ab51f2005a8d96f3
+#
+# RUN mkdir -p /opt/
+# RUN chmod 777 miniconda.sh ; bash miniconda.sh -b -p $ANACONDA3_BASE
+# RUN rm miniconda.sh && \
+#     export PATH=${ANACONDA3_BASE}/bin:$PATH && \
+#     conda config --set show_channel_urls True && \
+#     conda config --add channels conda-forge && \
+#     conda config --add channels defaults && \
+#     conda update --all --yes && \
+#     conda install --yes anaconda-client nbformat && \
+#     conda clean -tipy
 
 ##################################################################
 ## EasyBuild User Setup
@@ -102,17 +103,9 @@ WORKDIR $HOME
 ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 ENV EASYBUILD_ROBOT_PATHS $ROBOT:
 
-RUN source activate $EB_ENV && \
-	eb  --robot --robot-paths=$ROBOT   gencore_biosails-1.0.eb
-
 ## Remove the --dry-run in order to actually install the module
 RUN source activate $EB_ENV && \
 	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0.eb
-
-#Not sure if this is necessary
-RUN source activate $EB_ENV && \
- 	eb --dry-run --robot --robot-paths=$ROBOT: --minimal-toolchains --add-dummy-to-minimal-toolchains  gencore_rnaseq-1.0.eb
-
 
 ## Using --extended-dry-run will give you more information
 RUN source activate $EB_ENV && \
