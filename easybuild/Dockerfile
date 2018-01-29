@@ -1,20 +1,24 @@
 ### NYUAD CGSB EasyBuild Docker Image
 
-##################################################################
-## Base Image Setup
-##################################################################
-FROM quay.io/condaforge/linux-anvil
-
+FROM continuumio/miniconda3
 ENV LANG en_US.UTF-8
 
-RUN yum install -y git
-RUN . /opt/docker/bin/entrypoint_source
+RUN apt-get install -y  build-essential
 
-##################################################################
-## Anaconda Setup
-## We are using miniconda3/python3 from anaconda
-##################################################################
-ENV ANACONDA3_BASE /opt/conda
+RUN conda config --set always_yes yes --set changeps1 no
+RUN conda config --add channels r
+RUN conda config --add channels conda-forge
+RUN conda config --add channels bioconda
+RUN conda config --add channels nyuad-cgsb
+RUN mkdir -p $HOME/anaconda3/conda-bld
+
+RUN conda update --all -y
+
+RUN conda install python=3
+RUN conda install -y conda conda-build anaconda-client pip setuptools perl perl-app-cpanminus
+
+RUN pip uninstall gencore_app || echo "Gencore app is not installed"
+RUN pip install git+https://github.com/nyuad-cgsb/gencore_app.git@master
 
 ##################################################################
 ## EasyBuild User Setup
@@ -25,7 +29,6 @@ USER ebuser
 WORKDIR /home/ebuser
 
 ENV HOME=/home/ebuser
-ENV PATH=${ANACONDA3_BASE}/bin:$PATH
 ENV EASYBUILD_PREFIX=$HOME/.eb
 ENV EB_ENV=/home/ebuser/.eb/eb--3.5.0_lmod--7.3.16
 ENV MODULEPATH=$EASYBUILD_PREFIX/modules/all
@@ -76,6 +79,7 @@ RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
 
+
 WORKDIR $HOME
 
 ##################################################################
@@ -88,19 +92,19 @@ ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 ENV EASYBUILD_ROBOT_PATHS $ROBOT:
 
 ## Remove the --dry-run in order to actually install the module
-RUN source activate $EB_ENV && \
-	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.0.eb
+RUN bash -c "source activate $EB_ENV && \
+	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.1.eb"
 
-## Using --extended-dry-run will give you more information
-RUN source activate $EB_ENV && \
-	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb
-
-RUN source activate $EB_ENV && \
-	module avail
-
+### Using --extended-dry-run will give you more information
 #RUN source activate $EB_ENV && \
-#	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
-#        module avail
+#	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb
+#
+RUN bash -c "source activate $EB_ENV && \
+	module avail"
+
+#RUN bash -c "source activate $EB_ENV && \
+#	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb && \
+#        module avail"
 #
 #ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.5.0_lmod--7.3.16" ]
 
