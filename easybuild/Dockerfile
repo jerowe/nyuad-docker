@@ -1,6 +1,5 @@
 ### NYUAD CGSB EasyBuild Docker Image
 
-
 ##################################################################
 ## Base Image Setup
 ##################################################################
@@ -15,22 +14,7 @@ RUN . /opt/docker/bin/entrypoint_source
 ## Anaconda Setup
 ## We are using miniconda3/python3 from anaconda
 ##################################################################
-# ENV ANACONDA3_BASE /opt/anaconda3
 ENV ANACONDA3_BASE /opt/conda
-
-# RUN curl -s -L https://repo.continuum.io/miniconda/Miniconda3-4.2.12-Linux-x86_64.sh  > miniconda.sh && \
-#     openssl md5 miniconda.sh | grep d0c7c71cc5659e54ab51f2005a8d96f3
-#
-# RUN mkdir -p /opt/
-# RUN chmod 777 miniconda.sh ; bash miniconda.sh -b -p $ANACONDA3_BASE
-# RUN rm miniconda.sh && \
-#     export PATH=${ANACONDA3_BASE}/bin:$PATH && \
-#     conda config --set show_channel_urls True && \
-#     conda config --add channels conda-forge && \
-#     conda config --add channels defaults && \
-#     conda update --all --yes && \
-#     conda install --yes anaconda-client nbformat && \
-#     conda clean -tipy
 
 ##################################################################
 ## EasyBuild User Setup
