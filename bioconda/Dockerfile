@@ -1,10 +1,7 @@
 ### NYUAD CGSB base of bioconda builder image
 ### This is simply a copy of the condaforge/linux-anvil image, but with some conda packages precached to speed up building
 
-FROM quay.io/condaforge/linux-anvil:latest
-
-RUN source /opt/docker/bin/entrypoint
-RUN . scl_source enable devtoolset-2
+FROM bioconda/bioconda-utils:latest
 
 ENV PATH=/opt/rh/devtoolset-2/root/usr/bin:$PATH
 ENV PATH=/opt/conda/bin:$PATH
@@ -28,10 +25,5 @@ RUN pip install git+https://github.com/bioconda/bioconda-utils.git
 
 RUN conda index /opt/conda/conda-bld/linux-64 /opt/conda/conda-bld/osx-64
 RUN conda config --add channels file://conda/conda-bld
-
-# Ensure that all containers start with tini and the user selected process.
-# Activate the `conda` environment `root` and the devtoolset compiler.
-# Provide a default command (`bash`), which will start if the user doesn't specify one.
-
 
 CMD [ "/bin/bash" ]
