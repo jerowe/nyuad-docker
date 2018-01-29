@@ -102,10 +102,10 @@ RUN bash -c "source activate $EB_ENV && \
 RUN bash -c "source activate $EB_ENV && \
 	module avail"
 
-#RUN source activate $EB_ENV && \
-#	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
-#        module avail
-#
+RUN bash -c "source activate $EB_ENV && \
+	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb && \
+        module avail"
+
 #ENTRYPOINT [ "source activate /home/ebuser/.eb/eb--3.5.0_lmod--7.3.16" ]
 
 # Alternately, we could just load and source the modules ourselves
