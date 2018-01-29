@@ -1,7 +1,7 @@
 ### NYUAD CGSB base of bioconda builder image
 ### This is simply a copy of the condaforge/linux-anvil image, but with some conda packages precached to speed up building
 
-FROM bioconda/bioconda-utils
+FROM bioconda/bioconda-utils-build-env 
 
 ENV PATH=/opt/rh/devtoolset-2/root/usr/bin:$PATH
 ENV PATH=/opt/conda/bin:$PATH

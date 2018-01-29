@@ -79,6 +79,7 @@ RUN mkdir -p $HOME/.eb/custom_repos
 WORKDIR $HOME/.eb/custom_repos
 RUN git clone https://github.com/nyuad-cgsb/nyuad-hpc-module-configs
 
+
 WORKDIR $HOME
 
 ##################################################################
@@ -91,15 +92,15 @@ ENV ROBOT $HOME/.eb/custom_repos/nyuad-hpc-module-configs/_easybuild
 ENV EASYBUILD_ROBOT_PATHS $ROBOT:
 
 ## Remove the --dry-run in order to actually install the module
-RUN source activate $EB_ENV && \
-	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.1.eb
+RUN bash -c "source activate $EB_ENV && \
+	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_rnaseq-1.1.eb"
 
-## Using --extended-dry-run will give you more information
-RUN source activate $EB_ENV && \
-	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb
-
-RUN source activate $EB_ENV && \
-	module avail
+### Using --extended-dry-run will give you more information
+#RUN source activate $EB_ENV && \
+#	eb --extended-dry-run  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb
+#
+RUN bash -c "source activate $EB_ENV && \
+	module avail"
 
 #RUN source activate $EB_ENV && \
 #	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.0.eb && \
