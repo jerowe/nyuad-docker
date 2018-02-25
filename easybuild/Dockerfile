@@ -102,6 +102,9 @@ RUN bash -c "source activate $EB_ENV && \
 RUN bash -c "source activate $EB_ENV && \
 	module avail"
 
+RUN bash -c "source activate $EB_ENV && \
+	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_anaconda3-5.0.1.eb"
+
 #RUN bash -c "source activate $EB_ENV && \
 #	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb && \
 #        module avail"
