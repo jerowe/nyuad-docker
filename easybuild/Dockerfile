@@ -4,6 +4,7 @@ FROM continuumio/miniconda3
 ENV LANG en_US.UTF-8
 
 RUN apt-get install -y  build-essential
+RUN apt-get install -y -qq less
 
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda config --add channels r
