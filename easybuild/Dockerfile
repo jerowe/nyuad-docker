@@ -3,8 +3,10 @@
 FROM continuumio/miniconda3
 ENV LANG en_US.UTF-8
 
+RUN apt-get update -y
 RUN apt-get install -y  build-essential
 RUN apt-get install -y -qq less
+RUN apt-get install awscli unzip -y
 
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda config --add channels r
@@ -105,6 +107,13 @@ RUN bash -c "source activate $EB_ENV && \
 
 RUN bash -c "source activate $EB_ENV && \
 	eb --dry-run  --robot --robot-paths=$ROBOT   gencore_anaconda3-5.0.1.eb"
+
+RUN bash -c "source activate $EB_ENV && \
+	conda install -y gosu tini && \
+	eb  --robot --robot-paths=$ROBOT  {{ name }}-{{ version }}.eb && \
+        module avail"
+
+RUN  echo  "source activate $EB_ENV" >> ~/.bashrc
 
 #RUN bash -c "source activate $EB_ENV && \
 #	eb  --robot --robot-paths=$ROBOT  gencore_rnaseq-1.1.eb && \
