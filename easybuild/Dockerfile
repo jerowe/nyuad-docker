@@ -19,6 +19,7 @@ RUN conda update --all -y
 
 RUN conda install python=3
 RUN conda install -y conda conda-build anaconda-client pip setuptools perl perl-app-cpanminus
+RUN conda install -y gosu tini
 
 RUN pip uninstall gencore_app || echo "Gencore app is not installed"
 RUN pip install git+https://github.com/nyuad-cgsb/gencore_app.git@master
