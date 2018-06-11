@@ -6,6 +6,7 @@ ENV LANG en_US.UTF-8
 RUN apt-get update -y
 RUN apt-get install -y  build-essential
 RUN apt-get install lmod -y
+RUN apt-get clean
 
 RUN conda config --set always_yes yes --set changeps1 no
 RUN conda config --add channels conda-forge

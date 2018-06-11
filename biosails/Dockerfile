@@ -41,7 +41,7 @@ RUN yum install -y gcc
 RUN conda install -y libgcc zlib perl-app-cpanminus perl-termreadkey perl-dbi
 RUN conda install -y anaconda-client conda-build conda
 RUN conda install -y perl-moosex-app perl-moose
-RUN conda install -y perl-biox-workflow perl-biox-workflow-plugin-fileexists perl-biox-workflow-plugin-filedetails
+RUN conda install -y perl-biox-workflow-command
 
 WORKDIR /tmp
 
