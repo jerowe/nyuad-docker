@@ -47,14 +47,14 @@ WORKDIR /tmp
 
 RUN cpanm --notest --verbose Clone
 
-RUN wget https://github.com/jerowe/BioX-Workflow-Command/archive/v2.0.1-beta.tar.gz && \
-	tar -xvf v2.0.1-beta.tar.gz && \
-	cd BioX-Workflow-Command-2.0.1-beta  && \
-	cpanm --force --notest  --installdeps . && \
-	perl ./Build.PL       && \
-	perl ./Build          && \
-	perl ./Build test     && \
-	perl ./Build install --installdirs site
+#RUN wget https://github.com/jerowe/BioX-Workflow-Command/archive/v2.0.1-beta.tar.gz && \
+#	tar -xvf v2.0.1-beta.tar.gz && \
+#	cd BioX-Workflow-Command-2.0.1-beta  && \
+#	cpanm --force --notest  --installdeps . && \
+#	perl ./Build.PL       && \
+#	perl ./Build          && \
+#	perl ./Build test     && \
+#	perl ./Build install --installdirs site
 
 WORKDIR /tmp
 
@@ -66,7 +66,7 @@ RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v${RELEASE
 	cpanm --notest --force Log::Dispatch && \
 	perl ./Build.PL       && \
 	perl ./Build          && \
-	perl ./Build test     && \
+	#perl ./Build test     && \
 	perl ./Build install --installdirs site
 
 
