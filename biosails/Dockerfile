@@ -72,6 +72,7 @@ RUN wget https://github.com/jerowe/BioX-Workflow-Command-REST/archive/v${RELEASE
 
 WORKDIR /tmp
 
+RUN cpanm Devel::StackTrace
 RUN cpanm --notest Plack::Handler::Starman
 
 CMD plackup -E deployment -s Starman -p 3001 -r -R `pwd`/lib -a BioX-Workflow-Command-REST-${RELEASE}/script/biox-app.psgi
